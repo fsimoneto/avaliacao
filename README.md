@@ -42,5 +42,13 @@ cd mobile && npm test                 # Executa os testes mobile
 cd mobile && npm run allure:generate  # Gera relatório HTML  
 cd mobile && npm run allure:open      # Abre o relatório no navegador  
 ```
+---
+
+## Relatórios
+
+Após a execução do pipeline, os relatórios são salvos e podem ser baixados na aba **Actions**:
+1. Acesse o workflow executado;
+2. Role até a seção **Artifacts**;
+3. Baixe `relatorios-gerais.zip`.
 
 

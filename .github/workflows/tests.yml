@@ -27,10 +27,11 @@ jobs:
       - name: Run API tests
         run: npm run test:api
 
-      - name: Copiar relatório testes API
-        run: |
-          mkdir -p ../relatorios/e2e-api
-          cp -r playwright-report/* ../relatorios/e2e-api/ 
+      - name: Upload relatório API
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-api
+          path: playwright-report/
 
   e2e-tests:
     name: E2E Tests (Cucumber + Playwright)
@@ -55,10 +56,11 @@ jobs:
       - name: Run E2E tests
         run: npm run test:all
 
-      - name: Copiar relatório testes E2E
-        run: |
-          mkdir -p ../relatorios/e2e-api
-          cp -r reports/* ../relatorios/e2e-api/
+      - name: Upload relatório E2E
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-e2e
+          path: reports/
 
   mobile-tests:
     name: Mobile Tests (Appium)
@@ -80,12 +82,12 @@ jobs:
       - name: Skip Mobile Tests (placeholder)
         run: echo "Executar localmente para testes reais."
 
-      - name: Copiar relatório testes Mobile
-        run: |
-          mkdir -p ../relatorios/mobile
-          if [ -d "allure-report" ]; then
-            cp -r allure-report/* ../relatorios/mobile/
-          fi
+      - name: Upload relatório Mobile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-mobile
+          path: allure-report/
 
   load-tests:
     name: Load Test (K6)
@@ -109,21 +111,22 @@ jobs:
       - name: Run Load Test
         run: k6 run tests/load-test.js
 
-      - name: Copiar relatório testes Carga
-        run: |
-          mkdir -p ../relatorios/carga
-          cp -r reports/* ../relatorios/carga/
-
   upload-relatorios:
-    name: Upload Relatorios
+    name: Upload Relatorios Unificados
     runs-on: ubuntu-latest
     needs: [api-tests, e2e-tests, mobile-tests, load-tests]
     if: always()
     steps:
       - uses: actions/checkout@v3
 
-      - name: Upload dos relatórios
+      - name: Baixar relatórios
+        uses: actions/download-artifact@v4
+        with:
+          path: relatorios/
+
+      - name: Upload final dos relatórios unificados
         uses: actions/upload-artifact@v4
         with:
           name: relatorios-gerais
           path: relatorios/
+
