@@ -69,7 +69,7 @@ jobs:
 
       # Appium requires emulator/device. Aqui é simulado.
       - name: Skip Mobile Tests (placeholder)
-        run: echo "Mobile tests require a device/emulator. Run locally for real testing."
+        run: echo "Executar localmente para testes reais."
 
   load-tests:
     name: Load Test (K6)
