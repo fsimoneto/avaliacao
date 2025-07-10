@@ -102,7 +102,7 @@ jobs:
   upload-relatorios-unificados:
     name: Upload Relatórios Unificados
     runs-on: ubuntu-latest
-    needs: [api-tests, e2e-tests, load-tests]
+    needs: [api-tests, e2e-tests, k6-tests]
     if: always()
     steps:
       - uses: actions/download-artifact@v4
