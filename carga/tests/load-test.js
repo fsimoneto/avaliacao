@@ -6,8 +6,8 @@ exports.options = {
   vus: 500,
   duration: '5m',
   thresholds: {
-    'http_req_duration': ['p(95)<2000'],
-    'http_req_failed': ['rate<0.01'],
+    'http_req_duration': ['p(95)<2000'],  // 95% das requisições devem responder em menos de 2000ms
+    'http_req_failed': ['rate<0.01'],     // Menos de 1% das requisições podem falhar
   },
 };
 
