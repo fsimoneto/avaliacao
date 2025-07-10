@@ -111,6 +111,12 @@ jobs:
       - name: Run Load Test
         run: k6 run tests/load-test.js
 
+      - name: Upload relatório Carga
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-carga
+          path: reports/
+
   upload-relatorios:
     name: Upload Relatorios Unificados
     runs-on: ubuntu-latest
@@ -119,14 +125,32 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Baixar relatórios
+      - name: Baixar relatório API
         uses: actions/download-artifact@v4
         with:
-          path: relatorios/
+          name: relatorio-api
+          path: relatorios/api
+
+      - name: Baixar relatório E2E
+        uses: actions/download-artifact@v4
+        with:
+          name: relatorio-e2e
+          path: relatorios/e2e
+
+      - name: Baixar relatório Mobile
+        uses: actions/download-artifact@v4
+        with:
+          name: relatorio-mobile
+          path: relatorios/mobile
+
+      - name: Baixar relatório Carga
+        uses: actions/download-artifact@v4
+        with:
+          name: relatorio-carga
+          path: relatorios/carga
 
       - name: Upload final dos relatórios unificados
         uses: actions/upload-artifact@v4
         with:
           name: relatorios-gerais
           path: relatorios/
-
