@@ -91,9 +91,11 @@ jobs:
         run: k6 run tests/load-test.js
 
       - name: Listar arquivo do relatório carga
+        if: always()
         run: ls -la summary.html
 
       - name: Upload relatório Carga
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-carga
