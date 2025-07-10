@@ -1,0 +1,41 @@
+
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# dotenv files
+.env
+.env.local
+.env.*.local
+
+# Allure reports
+allure-results/
+allure-report/
+
+# Playwright reports
+playwright-report/
+
+# K6 summary reports
+summary.html
+
+# IDEs
+.vscode/
+.idea/
+
+# Android build artifacts (caso use build tools locais)
+*.apk
+
+# Mocha & coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.tmp
+*.bak

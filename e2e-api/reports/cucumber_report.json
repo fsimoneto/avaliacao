@@ -1,0 +1,261 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "checkout;fluxo-completo-de-compra",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Fluxo completo de compra",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 703697900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "que estou logado como \"standard_user\" com a senha \"secret_sauce\"",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:3"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3719898499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 5,
+            "name": "adiciono o item \"Sauce Labs Backpack\" ao carrinho",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35519299
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 6,
+            "name": "acesso o carrinho e avanço para o checkout",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 67360099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "preencho o formulário com nome \"Felipe\", sobrenome \"QA\" e CEP \"12345\"",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:17"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 48441399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "vejo o resumo da compra com item \"Sauce Labs Backpack\", preço \"$29.99\" e total \"Total: $32.39\"",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5277399
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 9,
+            "name": "finalizo o pedido com sucesso",
+            "match": {
+              "location": "tests\\step_definitions\\checkout.js:31"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43638799
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 79749800
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "checkout",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Checkout",
+    "tags": [],
+    "uri": "tests\\features\\checkout.feature"
+  },
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "login;login-com-sucesso",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Login com sucesso",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 131312200
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "que estou na tela de login",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 445063199
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "faço login com o usuário \"standard_user\" e a senha \"secret_sauce\"",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59443499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "devo ver a página de inventário",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2520599
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 31679000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "login;login-com-senha-incorreta",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "Login com senha incorreta",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 133821100
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "que estou na tela de login",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:4"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 446826099
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "faço login com o usuário \"standard_user\" e a senha \"abc123\"",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:8"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 59853799
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "devo ver a mensagem de erro \"Epic sadface: Username and password do not match any user in this service\"",
+            "match": {
+              "location": "tests\\step_definitions\\login.js:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2296099
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 31733200
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "login",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Login",
+    "tags": [],
+    "uri": "tests\\features\\login.feature"
+  }
+]

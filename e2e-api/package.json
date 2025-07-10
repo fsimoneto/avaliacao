@@ -1,0 +1,26 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:api": "npx playwright test tests/api",
+    "test:cucumber": "cucumber-js tests/features --require tests/step_definitions --require tests/support/world.js --format json:reports/cucumber_report.json",
+    "generate-report": "node scripts/generate-report.js",
+    "test:all": "npm run test:cucumber && npm run generate-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
+    "@playwright/test": "^1.53.2",
+    "@types/node": "^24.0.10",
+    "cucumber-html-reporter": "^7.2.0",
+    "playwright": "^1.53.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1"
+  }
+}
