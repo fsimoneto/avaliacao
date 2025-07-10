@@ -27,11 +27,14 @@ jobs:
       - name: Run API tests
         run: npm run test:api
 
+      - name: Listar arquivos do relatório API
+        run: ls -la playwright-report/
+
       - name: Upload relatório API
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-api
-          path: playwright-report/
+          path: e2e-api/playwright-report/
 
   e2e-tests:
     name: E2E Tests (Cucumber + Playwright)
@@ -56,11 +59,14 @@ jobs:
       - name: Run E2E tests
         run: npm run test:all
 
+      - name: Listar arquivos do relatório E2E
+        run: ls -la reports/
+
       - name: Upload relatório E2E
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-e2e
-          path: reports/
+          path: e2e-api/reports/
 
   mobile-tests:
     name: Mobile Tests (Appium)
@@ -82,12 +88,14 @@ jobs:
       - name: Skip Mobile Tests (placeholder)
         run: echo "Executar localmente para testes reais."
 
+      - name: Listar arquivos do relatório Mobile
+        run: ls -la allure-report/
+
       - name: Upload relatório Mobile
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-mobile
-          path: allure-report/
+          path: mobile/allure-report/
 
   load-tests:
     name: Load Test (K6)
@@ -111,46 +119,30 @@ jobs:
       - name: Run Load Test
         run: k6 run tests/load-test.js
 
+      - name: Listar arquivo do relatório carga
+        run: ls -la summary.html
+
       - name: Upload relatório Carga
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-carga
-          path: reports/
+          path: carga/summary.html
 
-  upload-relatorios:
-    name: Upload Relatorios Unificados
+  upload-relatorios-unificados:
+    name: Upload Relatórios Unificados
     runs-on: ubuntu-latest
     needs: [api-tests, e2e-tests, mobile-tests, load-tests]
     if: always()
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Baixar relatório API
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
-          name: relatorio-api
-          path: relatorios/api
+          path: relatorios-unificados/
 
-      - name: Baixar relatório E2E
-        uses: actions/download-artifact@v4
-        with:
-          name: relatorio-e2e
-          path: relatorios/e2e
-
-      - name: Baixar relatório Mobile
-        uses: actions/download-artifact@v4
-        with:
-          name: relatorio-mobile
-          path: relatorios/mobile
-
-      - name: Baixar relatório Carga
-        uses: actions/download-artifact@v4
-        with:
-          name: relatorio-carga
-          path: relatorios/carga
+      - name: Listar relatórios unificados
+        run: ls -R relatorios-unificados/
 
       - name: Upload final dos relatórios unificados
         uses: actions/upload-artifact@v4
         with:
           name: relatorios-gerais
-          path: relatorios/
+          path: relatorios-unificados/
