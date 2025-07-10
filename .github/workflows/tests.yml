@@ -27,6 +27,11 @@ jobs:
       - name: Run API tests
         run: npm run test:api
 
+      - name: Copiar relatório testes API
+        run: |
+          mkdir -p ../relatorios/e2e-api
+          cp -r playwright-report/* ../relatorios/e2e-api/ 
+
   e2e-tests:
     name: E2E Tests (Cucumber + Playwright)
     runs-on: ubuntu-latest
@@ -45,10 +50,15 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps  
+        run: npx playwright install  
 
       - name: Run E2E tests
         run: npm run test:all
+
+      - name: Copiar relatório testes E2E
+        run: |
+          mkdir -p ../relatorios/e2e-api
+          cp -r reports/* ../relatorios/e2e-api/
 
   mobile-tests:
     name: Mobile Tests (Appium)
@@ -67,9 +77,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Appium requires emulator/device. Aqui é simulado.
       - name: Skip Mobile Tests (placeholder)
         run: echo "Executar localmente para testes reais."
+
+      - name: Copiar relatório testes Mobile
+        run: |
+          mkdir -p ../relatorios/mobile
+          if [ -d "allure-report" ]; then
+            cp -r allure-report/* ../relatorios/mobile/
+          fi
 
   load-tests:
     name: Load Test (K6)
@@ -92,3 +108,21 @@ jobs:
 
       - name: Run Load Test
         run: k6 run tests/load-test.js
+
+      - name: Copiar relatório testes Carga
+        run: |
+          mkdir -p ../relatorios/carga
+          cp -r reports/* ../relatorios/carga/
+
+  upload-relatorios:
+    name: Upload Relatorios
+    runs-on: ubuntu-latest
+    needs: [api-tests, e2e-tests, mobile-tests, load-tests]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Upload dos relatórios
+        uses: actions/upload-artifact@v3
+        with:
+          name: relatorios-gerais
+          path: relatorios/
