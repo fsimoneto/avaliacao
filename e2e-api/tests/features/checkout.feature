@@ -1,6 +1,7 @@
 Feature: Checkout
 
   Scenario: Fluxo completo de compra
+  
     Given que estou logado como "standard_user" com a senha "secret_sauce"
     And adiciono o item "Sauce Labs Backpack" ao carrinho
     And acesso o carrinho e avanço para o checkout
