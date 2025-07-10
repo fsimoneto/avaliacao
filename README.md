@@ -34,7 +34,8 @@ Gera o arquivo de relatório `summary.html`.
 
 ## Teste Mobile
 
-Testes mobile automatizados com Appium, cobrindo fluxo de login, navegação, formulário e validações no app SauceLabs.
+Testes mobile automatizados com Appium, cobrindo fluxo de login, navegação, formulário e validações no app SauceLabs. Nao foi integrado ao GitActions
+devido a complexidade com emulador.
 
 Para rodar e gerar relatório Allure:  
 ```bash

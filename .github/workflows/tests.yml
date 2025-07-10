@@ -68,8 +68,8 @@ jobs:
           name: relatorio-e2e
           path: e2e-api/reports/
 
-  load-tests:
-    name: Load Test (K6)
+  k6-tests:
+    name: Teste de Carga (K6)
     runs-on: ubuntu-latest
     defaults:
       run:
