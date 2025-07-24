@@ -9,10 +9,10 @@ When('faço login com o usuário {string} e a senha {string}', async function (u
   await this.login.submit(username, password)
 })
 
-Then('devo ver a página de inventário', async function () {
-  await this.login.isLoggedIn()
-})
-
-Then('devo ver a mensagem de erro {string}', async function (mensagem) {
-  await this.login.isLoginErrorVisible(mensagem)
+Then('devo ver o resultado {string}', async function (mensagem) {
+  if (mensagem === 'INVENTORY') {
+    await this.login.isLoggedIn()
+  } else {
+    await this.login.isLoginErrorVisible(mensagem)
+  }
 })

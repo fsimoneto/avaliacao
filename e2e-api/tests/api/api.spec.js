@@ -10,49 +10,78 @@ const headers = {
   'x-api-key': apiKey,
 }
 
-test('POST - deve criar um usuário com sucesso', async ({ request }) => {
-  const response = await request.post(`${baseApi}/api/users`, {
-    headers,
-    data: {
+let createdUser
+
+test.describe('Testes de API', () => {
+  test.beforeEach(async ({ request }) => {
+    const response = await request.post(`${baseApi}/api/users`, {
+      headers,
+      data: {
+        name: 'Felipe',
+        job: 'QA Engineer',
+      },
+    })
+
+    expect(response.status()).toBe(201)
+    const body = await response.json()
+
+    createdUser = {
+      id: body.id,
+      name: body.name,
+      job: body.job,
+      createdAt: body.createdAt,
+    }
+
+    expect(body).toMatchObject({
       name: 'Felipe',
-      job: 'QA',
-    },
+      job: 'QA Engineer',
+    })
+    expect(body.id).toBeTruthy()
+    expect(body.createdAt).toMatch(/^\d{4}-\d{2}-\d{2}T/)
   })
 
-  expect(response.status()).toBe(201)
+  test('GET - deve listar usuários com sucesso', async ({ request }) => {
+    const response = await request.get(`${baseApi}/api/users?page=2`, { headers })
+    expect(response.status()).toBe(200)
 
-  const body = await response.json()
-  expect(body).toHaveProperty('id')
-  expect(body).toHaveProperty('createdAt')
-})
+    const body = await response.json()
+    expect(body).toHaveProperty('data')
+    expect(Array.isArray(body.data)).toBeTruthy()
+    expect(body.data.length).toBeGreaterThan(0)
 
-test('GET - deve listar usuários com sucesso', async ({ request }) => {
-  const response = await request.get(`${baseApi}/api/users?page=2`, { headers })
+    // Valida a estrutura
+    const user = body.data[0]
 
-  expect(response.status()).toBe(200)
+    expect(user).toHaveProperty('id')
+    expect(user).toHaveProperty('email')
+    expect(user).toHaveProperty('first_name')
+    expect(user).toHaveProperty('last_name')
+  })
 
-  const body = await response.json()
-  expect(body).toHaveProperty('data')
-  expect(Array.isArray(body.data)).toBeTruthy()
-})
+  test('PUT - deve atualizar um usuário com sucesso', async ({ request }) => {
+    const response = await request.put(`${baseApi}/api/users/${createdUser.id}`, {
+      headers,
+      data: {
+        name: 'Felipe QA',
+        job: 'Senior QA Engineer',
+      },
+    })
 
-test('PUT - deve atualizar um usuário com sucesso', async ({ request }) => {
-  const response = await request.put(`${baseApi}/api/users/2`, {
-    headers,
-    data: {
+    expect(response.status()).toBe(200)
+    const body = await response.json()
+
+    expect(body).toMatchObject({
       name: 'Felipe QA',
-      job: 'Senior QA',
-    },
+      job: 'Senior QA Engineer',
+    })
+    expect(body.updatedAt).toMatch(/^\d{4}-\d{2}-\d{2}T/)
   })
 
-  expect(response.status()).toBe(200)
-  
-  const body = await response.json()
-  expect(body).toHaveProperty('updatedAt')
-})
+  test('DELETE - deve excluir um usuário com sucesso', async ({ request }) => {
+    const response = await request.delete(`${baseApi}/api/users/${createdUser.id}`, {
+      headers,
+    })
 
-test('DELETE - deve excluir um usuário com sucesso', async ({ request }) => {
-  const response = await request.delete(`${baseApi}/api/users/2`, { headers })
-
-  expect(response.status()).toBe(204)
+    expect(response.status()).toBe(204)
+  })
 })

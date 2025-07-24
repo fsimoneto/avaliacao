@@ -1,13 +1,11 @@
 Feature: Login
 
-  Scenario: Login com sucesso
-
+  Scenario Outline: Tentativas de login
     Given que estou na tela de login
-    When faço login com o usuário "standard_user" e a senha "secret_sauce"
-    Then devo ver a página de inventário
+    When faço login com o usuário "<usuario>" e a senha "<senha>"
+    Then devo ver o resultado "<mensagem>"
 
-  Scenario: Login com senha incorreta
-  
-    Given que estou na tela de login
-    When faço login com o usuário "standard_user" e a senha "abc123"
-    Then devo ver a mensagem de erro "Epic sadface: Username and password do not match any user in this service"
+    Examples:
+      | usuario        | senha         | mensagem                                                                  |
+      | standard_user  | secret_sauce  | INVENTORY                                                                 |
+      | standard_user  | abc123        | Epic sadface: Username and password do not match any user in this service |
